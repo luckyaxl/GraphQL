@@ -19,15 +19,23 @@ const products = [
 
 const CategoryType = new GraphQLObjectType({
   name: "Category",
-  fields: {
+  fields: () => ({
     id: { type: GraphQLString },
-    name: { type: GraphQLString }
-  }
+    name: { type: GraphQLString },
+    products: {
+      type: new GraphQLList(ProductType),
+      resolve(parentValue, args) {
+        return axios
+          .get(`http://localhost:3000/categories/${parentValue.id}/products`)
+          .then(res => res.data);
+      }
+    }
+  })
 });
 
 const ProductType = new GraphQLObjectType({
   name: "Product",
-  fields: {
+  fields: () => ({
     id: { type: GraphQLString },
     name: { type: GraphQLString },
     image: { type: GraphQLString },
@@ -40,7 +48,7 @@ const ProductType = new GraphQLObjectType({
           .then(res => res.data);
       }
     }
-  }
+  })
 });
 
 const RootQuery = new GraphQLObjectType({
