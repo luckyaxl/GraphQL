@@ -1,5 +1,11 @@
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema, GraphQLList } = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLSchema,
+  GraphQLList
+} = graphql;
 
 const axios = require("axios");
 
@@ -10,6 +16,14 @@ const products = [
   { id: "1", name: "dompet", image: "", price: 20000 },
   { id: "2", name: "tas", image: "", price: 70000 }
 ];
+
+const CategoryType = new GraphQLObjectType({
+  name: "Category",
+  fields: {
+    id: { type: GraphQLString },
+    name: { type: GraphQLString }
+  }
+});
 
 const ProductType = new GraphQLObjectType({
   name: "Product",
@@ -39,6 +53,23 @@ const RootQuery = new GraphQLObjectType({
         //return _.find(products, { id: args.id });
         return axios
           .get(`http://localhost:3000/products/${args.id}`)
+          .then(res => res.data);
+      }
+    },
+    categories: {
+      type: new GraphQLList(CategoryType),
+      resolve(parentValue, args) {
+        return axios
+          .get(`http://localhost:3000/categories`)
+          .then(res => res.data);
+      }
+    },
+    category: {
+      type: CategoryType,
+      args: { id: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios
+          .get(`http://localhost:3000/categories/${args.id}`)
           .then(res => res.data);
       }
     }

@@ -1,16 +1,35 @@
 {
-    "products": [
-        {
-            "id": "1",
-            "name": "dompet",
-            "image": "",
-            "price": 20000
-        },
-        {
-            "id": "2",
-            "name": "tas",
-            "image": "",
-            "price": 70000
-        }
-    ]
+  "products": [
+    {
+      "id": "1",
+      "name": "dompet",
+      "image": "",
+      "price": 20000,
+      "categoryId": "1"
+    },
+    {
+      "id": "2",
+      "name": "tas",
+      "image": "",
+      "price": 70000,
+      "categoryId": "1"
+    },
+    {
+      "id": "3",
+      "name": "robot",
+      "image": "",
+      "price": 90000,
+      "categoryId": "2"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "fashion"
+    },
+    {
+      "id": "2",
+      "name": "toys"
+    }
+  ]
 }
