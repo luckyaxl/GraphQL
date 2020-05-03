@@ -31,7 +31,15 @@ const ProductType = new GraphQLObjectType({
     id: { type: GraphQLString },
     name: { type: GraphQLString },
     image: { type: GraphQLString },
-    price: { type: GraphQLInt }
+    price: { type: GraphQLInt },
+    category: {
+      type: CategoryType,
+      resolve(parentValue, args) {
+        return axios
+          .get(`http://localhost:3000/categories/${parentValue.categoryId}`)
+          .then(res => res.data);
+      }
+    }
   }
 });
 
