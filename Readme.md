@@ -1,0 +1,1 @@
+### GraphQL fake data json server
